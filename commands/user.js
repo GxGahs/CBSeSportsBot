@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
   }
 
   if (args.length < 3) {
-    return message.author.send("You haven't provided enough information. Please try again." +
+    return message.channel.send("You haven't provided enough information. Please try again." +
       "\n The syntax is: *$user full name $ CBSD email $ grade level*");
   }
   if (!(args[1].includes("@cbsd.org") || args[1].includes("@student.cbsd.org"))) {
@@ -30,7 +30,7 @@ module.exports.run = async (bot, message, args) => {
   }
 
   if (invalid.length > 0) {
-    return message.author.send("You've provided invalid information in the following" +
+    return message.channel.send("You've provided invalid information in the following" +
       "areas: " + invalid +".\nThe syntax is: *$user full name $ CBSD email $ grade level*");
   }
 
@@ -55,7 +55,7 @@ module.exports.run = async (bot, message, args) => {
     });
 
     if (message.channel.type != "dm") {
-      message.guild.channels.find(channel => channel.name == "member-info")
+      message.guild.channels.find(channel => channel.name == "bot")
       .send(`**${person.fullname}, ${gradelevel[person.grade]}**\n**email:** ` +
         `${person.email}\n**Discord id:** ${person.id}` +
         "\n------------------------------------");
@@ -67,9 +67,16 @@ module.exports.run = async (bot, message, args) => {
         "\n------------------------------------");
     }
 
-
+    mRole = message.guild.roles.get('619997911543185441')
 
   console.log(person + "\n\n" + args);
+
+  applicant = message.guild.members.get(message.author.id);
+  if (!message.member.roles.has(mRole)) {
+        applicant.addRole(mRole).catch(console.error)
+}
+
+  return message.react("✅");
 }
 
 module.exports.help = {
@@ -77,5 +84,5 @@ module.exports.help = {
   aliases: ["u"],
   description: "adds or updates user info",
   usage: `${auth.prefix}user full name ${auth.prefix} email ${auth.prefix} grade`,
-  dm: true
+  dm: false
 }

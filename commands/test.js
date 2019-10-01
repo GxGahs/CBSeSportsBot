@@ -5,7 +5,7 @@ const members = require("../members.json");
 
 module.exports.run = async (bot, message, args) => {
 
-  console.log(message.guild);
+  console.log(message.author);
 
 
 }
