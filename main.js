@@ -65,7 +65,7 @@ bot.on("guildMemberAdd", (member) => {
     });
 
   return member.send("Hey Gamer! You're almost all set up; just use the $user function "
-   + "to enter your full name, student email, and grade.\n ex: " +
+   + "in the bot channel to enter your full name, student email, and grade.\n ex: " +
   "*$user Johnny Appleseed $ Appleseed.J123@student.cbsd.org $ 12*");
 
 
@@ -89,8 +89,8 @@ bot.on("message", async message => {
   for (let i = 0; i < args.length; i++) {
     args[i] = args[i].trim();
   }
-  console.log(cmd);
-  console.log(args);
+  /*console.log(cmd);
+  console.log(args);*/
 
 
   if (msg.substring(0,prefix.length) === prefix) {
